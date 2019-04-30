@@ -1,6 +1,6 @@
 // This specifies the Solidity compiler version that generates 
 // opcodes and ABI to be stored on the blockchain
-pragma solidity >=0.4.22 <0.6.0;
+pragma solidity ^0.4.22;
 
 contract CredentialFactory {
     address [] public issuedCredentials;
@@ -13,11 +13,11 @@ contract CredentialFactory {
     string _recipientName, 
     string _courseName, 
     string _courseDescription, 
-    string _issuer, 
+    string _issuerName, 
     string _instructorName, 
     uint _issuedOn) public {
         // create instance of new credential 
-        address newCredential = new Credential(msg.sender, _id, _recipientName, _courseName, _courseDescription, _issuer, _instructorName, _issuedOn);
+        address newCredential = new Credential(msg.sender, _id, _recipientName, _courseName, _courseDescription, _issuerName, _instructorName, _issuedOn);
         
         emit CredentialCreated(newCredential);
         
@@ -32,7 +32,7 @@ contract CredentialFactory {
 }
 
 contract Credential {
-    // owner address
+    // owner address, usually the recipient of the credential
     address public owner;
     
     // credential details
@@ -40,7 +40,7 @@ contract Credential {
     string public recipientName;
     string public courseName;
     string public courseDescription;
-    string public issuer;
+    string public issuerName;
     string public instructorName;
     uint public issuedOn;
     
@@ -49,17 +49,17 @@ contract Credential {
     string _recipientName, 
     string _courseName, 
     string _courseDescription, 
-    string _issuer, 
+    string _issuerName, 
     string _instructorName, 
     uint _issuedOn) public {
         // instantiate your credential here
         owner = _owner;
         id = _id;
-        issuer = _issuer;
+        issuerName = _issuerName;
         recipientName = _recipientName;
         courseName = _courseName;
         courseDescription = _courseDescription;
-        issuer = _issuer;
+        issuerName = _issuerName;
         instructorName = _instructorName;
         issuedOn = _issuedOn;
     }
