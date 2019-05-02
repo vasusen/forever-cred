@@ -86,4 +86,18 @@ contract Credential {
         return address(this).balance;
     }
     
+    // get details of the credential
+    function getCredentialDetails() public view returns (
+        address, string, string, string, string, string, string, uint) {
+        return (
+          owner,
+          id,
+          recipientName,
+          courseName,
+          courseDescription,
+          issuerName,
+          instructorName,
+          issuedOn
+        );
+    }
 }

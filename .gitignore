@@ -25,3 +25,7 @@ Icon
 Network Trash Folder
 Temporary Items
 .apdisk
+
+# Next & Node Modules
+.next
+node_modules/.cache
