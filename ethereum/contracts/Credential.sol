@@ -20,7 +20,7 @@ contract CredentialFactory {
     }
 
     // function to issue new credentials 
-    function createCredential(string _owner,
+    function createCredential(address _owner,
     string _id,
     string _recipientName,
     string _courseName,
