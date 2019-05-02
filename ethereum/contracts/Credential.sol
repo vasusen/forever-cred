@@ -1,13 +1,20 @@
 // This specifies the Solidity compiler version that generates 
 // opcodes and ABI to be stored on the blockchain
-pragma solidity ^0.4.22;
+pragma solidity 0.4.26;
 
 contract CredentialFactory {
+    address public credentialAuthority = 0xc209e44349abA1F8c59c6770694cA5dBdB9BB155;
     address [] public issuedCredentials;
     
     // emit event when credential has been created
     event CredentialCreated(address credentialAddress);
     
+    // reusable modifier function for ensuring only the credentialAuthority can perform an action
+    modifier onlyCredentialAuthority() {
+        require(msg.sender == credentialAuthority);
+        _;
+    }
+
     // function to issue new credentials 
     function createCredential(string _id, 
     string _recipientName, 
@@ -15,7 +22,7 @@ contract CredentialFactory {
     string _courseDescription, 
     string _issuerName, 
     string _instructorName, 
-    uint _issuedOn) public {
+    uint _issuedOn) public onlyCredentialAuthority {
         // create instance of new credential 
         address newCredential = new Credential(msg.sender, _id, _recipientName, _courseName, _courseDescription, _issuerName, _instructorName, _issuedOn);
         
