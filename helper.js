@@ -1,3 +1,4 @@
+
 export const NAME_CHAR_LIMIT = 100;
 export const DESCRIPTION_CHAR_LIMIT = 400;
 

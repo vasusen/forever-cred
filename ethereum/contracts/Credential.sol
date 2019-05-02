@@ -1,6 +1,6 @@
 // This specifies the Solidity compiler version that generates 
 // opcodes and ABI to be stored on the blockchain
-pragma solidity 0.4.26;
+pragma solidity ^0.4.22;
 
 contract CredentialFactory {
     address public credentialAuthority;

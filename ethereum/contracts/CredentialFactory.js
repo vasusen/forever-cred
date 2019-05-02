@@ -4,11 +4,10 @@ import CredentialFactory from '../build/CredentialFactory.json';
 
 const instance = new web3.eth.Contract(
   JSON.parse(CredentialFactory.interface),
-  // This is the address of the contract factory
-  // '0x7117f833A11ecFAddD3cBFbe521219b67Fe64FEb'
-
-  // Mainnet
-  '0xf600c8faf89504850e26bcb8c03d04fa5b00ac8f'
+  // Set the contract address of CredentialFactory contract here
+  // Ganache:
+  //'0x6426b195D7439082ea3975d9005EfC6eD7ac6c13'
+  '0x5aFfF0aF3d8908436E63D9322Ac04cD50fb54c71'
 );
 
 export default instance;

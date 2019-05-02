@@ -4,7 +4,8 @@ const fetch = require("node-fetch");
 // "https://www.coursera.org/account/accomplishments/records/TOKEN"
 // "www.coursera.org/account/accomplishments/certificate/TOKEN"
 // "TOKEN"
-async function getCredentials(credsString) {
+
+export const getCredentials = async (credsString) => {
   const token = credsString.split("/").slice(-1)[0];
   const api = `https://www.coursera.org/api/memberships.v1?fields=courseId,enrolledTimestamp,grade,lastAccessedTimestamp,role,signatureTrackProfile,v1SessionId,vcMembershipId,vcMemberships.v1(certificateCode,grade,grantedAt),courses.v1(categories,certificatePartnerLogo,certificates,description,durationString,instructorIds,name,partnerIds,partnerLogo,photoUrl,startDate,v1Details,workload),partners.v1(classLogo,homeLink,logo,name,shortName),instructors.v1(firstName,fullName,lastName,middleName,prefixName,profileId,shortName,suffixName),v1Details.v1(aboutTheCourse,courseSyllabus,name,sessionIds,shortName),v1Sessions.v1(active,certificatesReleased,courseId,dbEndDate,durationString,eligibleForCertificate,gradingPolicyDistinction,gradingPolicyNormal,hasSigTrack,homeLink,instructorIds,startDay,startMonth,startYear,status,v1VcDetailId),signatureTrackProfiles.v1(firstName,lastName,middleName)&includes=courseId,signatureTrackProfile,vcMembershipId,courses.v1(categories,instructorIds,partnerIds,v1Details),v1Details.v1(sessionIds)&q=byCode&code=${token}&showHidden=true`;
 
@@ -29,4 +30,3 @@ async function getCredentials(credsString) {
   return response;
 }
 
-module.exports = { getCredentials };

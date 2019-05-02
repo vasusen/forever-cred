@@ -6,8 +6,8 @@ import Credential from '../ethereum/contracts/Credential';
 import web3 from '../ethereum/web3';
 import { Router } from '../routes';
 
-// TODO: import helper.js
 import { fieldsAreValid, dateToEpoch } from '../helper';
+import { getCredentials } from '../scraper';
 
 class CredentialForm extends Component {
 
@@ -19,6 +19,8 @@ class CredentialForm extends Component {
     issuerName: '',
     instructorName: '',
     issuedOn: '',
+    ethereumWalletAddress: '',
+    certURL: '',
     loading: false,
     errorMessage: '',
     successMessage: '',
@@ -39,18 +41,21 @@ class CredentialForm extends Component {
     this.setState({ loading: true, errorMessage: '', successMessage: '' });
 
     // Form Validation: check date validity
-    const fieldErrorMsg = fieldsAreValid(this.state);
+    //const fieldErrorMsg = fieldsAreValid(this.state);
+    const fieldErrorMsg = '';
     if (!fieldErrorMsg) {
-      let { id, recipientName, courseName, courseDescription, issuerName, instructorName } = this.state;
-      const issuedOn = dateToEpoch(this.state.issuedOn);
+      let { ethereumWalletAddress, certURL } = this.state;
+      //let { id, recipientName, courseName, courseDescription, issuerName, instructorName } = this.state;
+      let { id, recipientName, courseName, courseDescription, issuerName, instructorName, issuedOn } = getCredentials(this.state.certURL);
+      const owner = this.state.ethereumWalletAddress;
 
       // Submitting form to the blockchain
       try {
         const accounts = await web3.eth.getAccounts();
         // (1) Create new credential contract
         let transaction = await CredentialFactory.methods
-          .createCredential(id, recipientName, courseName, courseDescription, issuerName, instructorName, issuedOn)
-          .send({ from: accounts[0] });
+          .createCredential(owner, id, recipientName, courseName, courseDescription, issuerName, instructorName, issuedOn)
+          .send({ from: accounts[0], gas: 100000 });
         // Update Web app
         this.setState({
           txnHash: transaction.transactionHash, blockWitnessed: transaction.blockNumber,
@@ -76,57 +81,17 @@ class CredentialForm extends Component {
 
         
         <div className='Line-White-Space'/>
-
-        <Form.Group widths='equal' className='Form-Group'>
-            <Form.Input
-              placeholder='mm-dd-yyyy'
-              value={ this.state.issuedOn }
-              onChange = { event => this.setState({issuedOn: event.target.value}) }
-            />
-            <Form.Input
-              placeholder="ID of the certificate"
-              value = { this.state.id }
-              onChange = { event => this.setState({id: event.target.value}) }
-            />
-            <Form.Input
-              placeholder="Your Name"
-              value = { this.state.recipientName }
-              onChange = { event => this.setState({recipientName: event.target.value}) }
-            />
-        </Form.Group>
-        <div className='Line-White-Space'/>
-
-        <div className='Line-White-Space'/>
-
-        <Form.Group widths='equal' className='Form-Group'>
-          <Form.Input
-            placeholder='Course Name'
-            value={ this.state.courseName }
-            onChange={ event => this.setState({courseName: event.target.value}) }
-          />
-          <span>    </span>
-          <Form.TextArea
-            placeholder='Course Description'
-            value={ this.state.courseDescription }
-            onChange={ event => this.setState({courseDescription: event.target.value}) }
-          />
-
-        </Form.Group>
-            
-        <Form.Group widths='equal' className='Form-Group'>
-          <Form.Input
-            placeholder='Issuer Name'
-            value={ this.state.issuerName }
-            onChange={ event => this.setState({issuerName: event.target.value}) }
-          />
-          <span>    </span>
-          <Form.Input
-            placeholder='Instructor Name'
-            value={ this.state.instructorName }
-            onChange={ event => this.setState({instructorName: event.target.value}) }
-          />
-
-        </Form.Group>
+        
+        <Form.Input
+          placeholder="Your blockchain wallet address"
+          value = { this.state.ethereumWalletAddress }
+          onChange = { event => this.setState({ethereumWalletAddress: event.target.value}) }
+        />
+        <Form.Input
+          placeholder="Your Coursera certificate URL"
+          value = { this.state.certURL }
+          onChange = { event => this.setState({certURL: event.target.value}) }
+        />
         
 
         <Message error header='oops!' content={ this.state.errorMessage } />

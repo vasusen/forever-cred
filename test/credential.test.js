@@ -10,6 +10,7 @@ let accounts;
 let credentialFactory;
 let credentialAddress;
 let credentialContract;
+const credentialOwner = '0xBB9E82537BF346cB73A593D3A58632a15E43532d';
 
 beforeEach(async () => {
   accounts = await web3.eth.getAccounts();
@@ -20,6 +21,7 @@ beforeEach(async () => {
 
   await credentialFactory.methods.createCredential
     (
+      credentialOwner,
       "5KJ349Q", 
       "John Smith", 
       "Machine Learning", "an online non-credit course authorized by Stanford University and offered through Coursera", 
@@ -43,8 +45,8 @@ describe('Credential', () => {
     assert.ok(credentialContract.options.address);
   });
 
-  it('marks caller as the credentialContract manager', async () => {
+  it('verifies owner is correct', async () => {
     const owner = await credentialContract.methods.owner().call();
-    assert.equal(accounts[0], owner);
+    assert.equal(credentialOwner, owner);
   })
 })
