@@ -3,7 +3,7 @@
 pragma solidity 0.4.26;
 
 contract CredentialFactory {
-    address public credentialAuthority = 0xc209e44349abA1F8c59c6770694cA5dBdB9BB155;
+    address public credentialAuthority;
     address [] public issuedCredentials;
     
     // emit event when credential has been created
@@ -13,6 +13,10 @@ contract CredentialFactory {
     modifier onlyCredentialAuthority() {
         require(msg.sender == credentialAuthority);
         _;
+    }
+
+    constructor() public {
+        credentialAuthority = msg.sender;
     }
 
     // function to issue new credentials 
