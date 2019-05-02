@@ -22,7 +22,7 @@ export function fieldsAreValid(fields) {
     // return false;
   }
   // Check description and course names are under n chars
-  if (!(courseDescription.length < VOWS_CHAR_LIMIT && courseName.length < DESCRIPTION_CHAR_LIMIT)) {
+  if (!(courseDescription.length < DESCRIPTION_CHAR_LIMIT && courseName.length < DESCRIPTION_CHAR_LIMIT)) {
     return 'Make sure your course description and course name are under 400 characters';
     // return false;
   }

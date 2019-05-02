@@ -123,7 +123,7 @@ class CredentialForm extends Component {
           <Form.Input
             placeholder='Instructor Name'
             value={ this.state.instructorName }
-            onChange={ event => this.setState({issuerName: event.target.value}) }
+            onChange={ event => this.setState({instructorName: event.target.value}) }
           />
 
         </Form.Group>
