@@ -55,6 +55,9 @@ CD into Ethereum directory, then run:
     }
     deploy();
 
+**To run tests:**
+
+    $ npm test
 
 ## License
 MIT License

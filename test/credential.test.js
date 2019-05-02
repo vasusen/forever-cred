@@ -18,7 +18,14 @@ beforeEach(async () => {
     .deploy({ data: compiledCredentialFactory.bytecode })       // Creates deployment package
     .send({ from: accounts[0], gas: '3000000'});
 
-  await credentialFactory.methods.createCredential("Daniel", "I do", "Nicole", "I really do", 2018-5-19).send({
+  await credentialFactory.methods.createCredential
+    (
+      "5KJ349Q", 
+      "John Smith", 
+      "Machine Learning", "an online non-credit course authorized by Stanford University and offered through Coursera", 
+      "Stanford University",
+      "Andrew Ng",
+      2018-8-19).send({
     from: accounts[0],
     gas: '3000000'
   });
