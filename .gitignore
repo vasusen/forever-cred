@@ -28,4 +28,5 @@ Temporary Items
 
 # Next & Node Modules
 .next
+node_modules/
 node_modules/.cache
