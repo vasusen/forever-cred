@@ -20,15 +20,16 @@ contract CredentialFactory {
     }
 
     // function to issue new credentials 
-    function createCredential(string _id, 
-    string _recipientName, 
-    string _courseName, 
-    string _courseDescription, 
-    string _issuerName, 
-    string _instructorName, 
+    function createCredential(string _owner,
+    string _id,
+    string _recipientName,
+    string _courseName,
+    string _courseDescription,
+    string _issuerName,
+    string _instructorName,
     uint _issuedOn) public onlyCredentialAuthority {
         // create instance of new credential 
-        address newCredential = new Credential(msg.sender, _id, _recipientName, _courseName, _courseDescription, _issuerName, _instructorName, _issuedOn);
+        address newCredential = new Credential(_owner, _id, _recipientName, _courseName, _courseDescription, _issuerName, _instructorName, _issuedOn);
         
         emit CredentialCreated(newCredential);
         
