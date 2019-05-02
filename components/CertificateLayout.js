@@ -3,7 +3,6 @@ import { Container } from 'semantic-ui-react';
 import Head from 'next/head';
 import { Link } from '../routes';
 import "../style.css";
-import { FacebookShareButton, TwitterShareButton, FacebookIcon, TwitterIcon } from 'react-share';
 import BaseLayout from './BaseLayout'
 
 class CertificateLayout extends Component {
@@ -22,17 +21,9 @@ class CertificateLayout extends Component {
         <div className="Certificate-Layout">
           <div className="Certificate-Layout-Child">
           <div className="Certificate-Layout-Header">
-            <Link route={`/`}><a className='Home-Button'>Forevermore</a></Link>
-            <div className="Social-Buttons">
-              <FacebookShareButton url={ this.state.shareURL }>
-                <FacebookIcon size={28} />
-              </FacebookShareButton>
-              <TwitterShareButton url={ this.state.shareURL }>
-                <TwitterIcon size={28} />
-              </TwitterShareButton>
-            </div>
+            <Link route={`/`}><a className='Home-Button'>Forevercred</a></Link>
             <img className="Certificate-Layout-Image" src='/static/argyle.png'/>
-            <h1 className="Cert-of-Credential-Title">Certificate Of Credential</h1>
+            <h1 className="Cert-of-Credential-Title">Certificate Of Completion</h1>
             <div className="Cert-of-Credential-Subtitle">Your credential on the blockchain</div>
           </div>
 

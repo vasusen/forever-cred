@@ -18,18 +18,19 @@ class CredsShow extends Component {
     const credential = Credential(address);
 		const credentialDetails = await credential.methods.getCredentialDetails().call();
     const owner = credentialDetails[0];
-    const leftName = credentialDetails[1];
-    const leftVows = credentialDetails[2];
-    const rightName = credentialDetails[3];
-    const rightVows = credentialDetails[4];
-    const date = credentialDetails[5];
-    const bellCounter = credentialDetails[6];
+    const id = credentialDetails[1];
+    const recipientName = credentialDetails[2];
+    const courseName = credentialDetails[3];
+    const courseDescription = credentialDetails[4];
+    const issuerName = credentialDetails[5];
+    const instructorName = credentialDetails[6];
+    const issuedOn = credentialDetails[7];
 
     const weiBalance = await credential.methods.getBalance().call();
     const balance = await web3.utils.fromWei(weiBalance, 'ether');
 
     return {
-      address, owner, leftName, leftVows, rightName, rightVows, date, bellCounter, balance
+      address, owner, id, recipientName, courseName, courseDescription, issuerName, instructorName, issuedOn, balance
     };
 	}
 
@@ -62,22 +63,19 @@ class CredsShow extends Component {
         {(this.state.WithdrawVisible) && <Withdraw address={this.props.address} balance={this.props.balance}/> }
         <Container className='Cert-Container'>
 
-          <div className='Large-Cursive'>On {this.epochToDate(this.props.date)}</div>
+          <div className='Large-Cursive'>On {this.epochToDate(this.props.issuedOn)}</div>
           <Grid id='Vows-Grid' stackable={true} columns='equal'>
-            <Grid.Column className='Large-Serif'>{ this.props.leftName }</Grid.Column>
-            <Grid.Column className= 'Form-Input-Label' width={2}>and</Grid.Column>
-            <Grid.Column className='Large-Serif'>{ this.props.rightName }</Grid.Column>
+            <Grid.Column className='Large-Serif'>{ this.props.recipientName }</Grid.Column>
+            <Grid.Column className='Large-Serif'>{ this.props.courseName }</Grid.Column>
+            <Grid.Column className='Large-Serif'>{ this.props.courseDescription }</Grid.Column>
           </Grid>
-
-          <div className='Form-Input-Label'>Were united in eternal matrimony</div>
 
           <Grid id='Vows-Grid' stackable={true} columns='equal'>
             <Grid.Column className='Vows-Text'>{ this.trunc(this.props.leftVows) }</Grid.Column>
-            <Grid.Column width={1}> </Grid.Column>
             <Grid.Column className='Vows-Text'>{ this.trunc(this.props.rightVows) }</Grid.Column>
           </Grid>
 
-          <div className='Large-Cursive'>Ring the Bell</div>
+          <div className='Large-Cursive'>Congratulate on the accomplishment</div>
           <Bell address={this.props.address}/>
 
           <WitnessedByFooter address={this.props.address}/>

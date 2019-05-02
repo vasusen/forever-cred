@@ -12,11 +12,13 @@ import { fieldsAreValid, dateToEpoch } from '../helper';
 class CredentialForm extends Component {
 
   state = {
-    leftName: '',
-    rightName: '',
-    leftVows: '',
-    rightVows: '',
-    date: '',
+    id: '',
+    recipientName: '',
+    courseName: '',
+    courseDescription: '',
+    issuerName: '',
+    instructorName: '',
+    issuedOn: '',
     loading: false,
     errorMessage: '',
     successMessage: '',
@@ -39,15 +41,15 @@ class CredentialForm extends Component {
     // Form Validation: check date validity
     const fieldErrorMsg = fieldsAreValid(this.state);
     if (!fieldErrorMsg) {
-      let { leftName, leftVows, rightName, rightVows } = this.state;
-      const date = dateToEpoch(this.state.date);
+      let { id, recipientName, courseName, courseDescription, issuerName, instructorName } = this.state;
+      const issuedOn = dateToEpoch(this.state.issuedOn);
 
       // Submitting form to the blockchain
       try {
         const accounts = await web3.eth.getAccounts();
         // (1) Create new credential contract
         let transaction = await CredentialFactory.methods
-          .createCredential(leftName, leftVows, rightName, rightVows, date)
+          .createCredential(id, recipientName, courseName, courseDescription, issuerName, instructorName, issuedOn)
           .send({ from: accounts[0] });
         // Update Web app
         this.setState({
@@ -72,55 +74,66 @@ class CredentialForm extends Component {
       <Container className='Cert-Container'>
       <Form onSubmit={ this.handleSubmit } error={!!this.state.errorMessage} success={!!this.state.successMessage} >
 
-        <div className='Form-Input-Label'>On This Date</div>
-        <DateInput
-          name='date'
-          placeholder='Date'
-          value={ this.state.date }
-          iconPosition='left'
-          onChange={ this.onDateChange }
-        />
+        
         <div className='Line-White-Space'/>
 
         <Form.Group widths='equal' className='Form-Group'>
             <Form.Input
-              placeholder="Your Name"
-              value = { this.state.leftName }
-              onChange = { event => this.setState({leftName: event.target.value}) }
+              placeholder='mm-dd-yyyy'
+              value={ this.state.issuedOn }
+              onChange = { event => this.setState({issuedOn: event.target.value}) }
             />
-            <span className='Form-Input-Label And-Separator'>and</span>
+            <Form.Input
+              placeholder="ID of the certificate"
+              value = { this.state.id }
+              onChange = { event => this.setState({id: event.target.value}) }
+            />
             <Form.Input
               placeholder="Your Name"
-              value = { this.state.rightName }
-              onChange = { event => this.setState({rightName: event.target.value}) }
+              value = { this.state.recipientName }
+              onChange = { event => this.setState({recipientName: event.target.value}) }
             />
         </Form.Group>
         <div className='Line-White-Space'/>
 
-        <div className='Form-Input-Label'>Were united in eternal matrimony</div>
-        <div className='Form-Input-Label'>In accordance with the following creds</div>
         <div className='Line-White-Space'/>
 
         <Form.Group widths='equal' className='Form-Group'>
-          <Form.TextArea
-            placeholder='Your creds'
-            value={ this.state.leftVows }
-            onChange={ event => this.setState({leftVows: event.target.value}) }
+          <Form.Input
+            placeholder='Course Name'
+            value={ this.state.courseName }
+            onChange={ event => this.setState({courseName: event.target.value}) }
           />
           <span>    </span>
           <Form.TextArea
-            placeholder='Your creds'
-            value={ this.state.rightVows }
-            onChange={ event => this.setState({rightVows: event.target.value}) }
+            placeholder='Course Description'
+            value={ this.state.courseDescription }
+            onChange={ event => this.setState({courseDescription: event.target.value}) }
           />
 
         </Form.Group>
+            
+        <Form.Group widths='equal' className='Form-Group'>
+          <Form.Input
+            placeholder='Issuer Name'
+            value={ this.state.issuerName }
+            onChange={ event => this.setState({issuerName: event.target.value}) }
+          />
+          <span>    </span>
+          <Form.Input
+            placeholder='Instructor Name'
+            value={ this.state.instructorName }
+            onChange={ event => this.setState({issuerName: event.target.value}) }
+          />
+
+        </Form.Group>
+        
 
         <Message error header='oops!' content={ this.state.errorMessage } />
         <Message success header='yay!' content={ this.state.successMessage } />
 
         <Button loading={ this.state.loading } id='CredentialBtn' icon labelPosition='left'>
-          <Icon name='heart' />
+        <Icon name='plus' />
           Submit
         </Button>
 
