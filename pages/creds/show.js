@@ -15,11 +15,13 @@ class CredsShow extends Component {
 	// Retrieve the credential contract instance to show the details
 	static async getInitialProps(props) {
 		const address = props.query.address;
+    console.log("address is ");
+    console.log(address);
     const credential = Credential(address);
     console.log("cred is");
     console.log(credential);
-		const credentialDetails = await credential.methods.getCredentialDetails().call({ from: '0xb83f3514A41B9fb0AEEF42bE8e7a756F0d32Aa6E', gas: 100000 });
-    //const credentialDetails = {0:"0x671890EDeF6EDE5bE2ca0e6566C286fbeCc0E3fd", 1:"5NJRT92TTN37", 2:"susen Patil", 3:"Machine Learning", 4:"an online non-credit course authorized by Stanford and offered through Coursera", 5:"Stanford University", 6:"Andrew Ng", 7:1537649322116};
+		//const credentialDetails = await credential.methods.getCredentialDetails().call({ from: process.env.ETH_USER_ADDRESS || '0xc209e44349abA1F8c59c6770694cA5dBdB9BB155', gas: 1000000 });
+    const credentialDetails = {0:"0x671890EDeF6EDE5bE2ca0e6566C286fbeCc0E3fd", 1:"5NJRT92TTN37", 2:"Vasusen Patil", 3:"Machine Learning", 4:"an online non-credit course authorized by Stanford and offered through Coursera", 5:"Stanford University", 6:"Andrew Ng", 7:1537649322116};
     console.log("call done");
     console.log(credential.options.address);
     console.log("name");
