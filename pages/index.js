@@ -11,7 +11,7 @@ import _ from 'lodash';
 class CredentialIndex extends Component {
 
   static async getInitialProps() {
-    const issuedCredentials = await credentialFactory.methods.getIssuedCredentials().call();
+    const issuedCredentials = await credentialFactory.methods.getIssuedCredentials().call({ from: process.env.ETH_USER_ADDRESS || '0xc209e44349abA1F8c59c6770694cA5dBdB9BB155', gas: 1000000 });
     // Omits blacklisted contract addresses from list, to not be shown
     const displayCredentials = _.difference(issuedCredentials, Blacklist);
 
@@ -41,8 +41,8 @@ class CredentialIndex extends Component {
       return {
         key: this.props.allCredentials[index],
         color: colors[index % colors.length],
-        header: `${credential[1]} and ${credential[3]}`,
-        meta: `Married on ${epochToDate(credential[5])}`,
+        header: `${credential[1]} - ${credential[3]}`,
+        meta: `Online course completed by`,
         description: (
           <Link route={`/creds/${this.props.allCredentials[index]}`}>
             <a className='creds-link'>{ `${credential[2]}`}</a>
