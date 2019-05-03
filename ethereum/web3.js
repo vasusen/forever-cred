@@ -10,6 +10,8 @@ let web3;
 // Logic to see which environment we are in (either server or client-side)
 if (typeof window !== 'undefined' && typeof window.web3 !== 'undefined') {
   // We are in the browser and metamask is running
+  console.log('Running in browser mode');
+
   web3 = new Web3(window.web3.currentProvider);
 } else {
   // We are on the server OR the user is not running metamask
@@ -25,6 +27,8 @@ if (typeof window !== 'undefined' && typeof window.web3 !== 'undefined') {
     }
   );*/
 
+  console.log(`Creating a provider for ${process.env.ETH_CONNECTION_URL}`);
+
   const provider = new HDWalletProvider(
     //'HTTP://127.0.0.1:7545'
     // Ropsten
@@ -32,7 +36,11 @@ if (typeof window !== 'undefined' && typeof window.web3 !== 'undefined') {
     process.env.ETH_CONNECTION_URL || 'HTTP://127.0.0.1:7545'
   );
 
+  console.log('Reassigning web3 to provider');
+
   web3 = new Web3(provider);  // Reassign web3 to provider
+
+  console.log('Reassigned web3 to provider');
 }
 
 
