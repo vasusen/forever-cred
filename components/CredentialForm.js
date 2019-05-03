@@ -54,14 +54,15 @@ class CredentialForm extends Component {
         const accounts = await web3.eth.getAccounts();
         // (1) Create new credential contract
         let transaction = await CredentialFactory.methods
-          .createCredential(owner, id, recipientName, courseName, courseDescription, issuerName, instructorName, issuedOn)
-          .send({ from: accounts[0], gas: 100000 });
+          .createCredential(id, recipientName, courseName, courseDescription, issuerName, instructorName, issuedOn)
+        .send({ from: accounts[0], gas: 1000000 }); // Gas limit is required for Ganache
+        
         // Update Web app
         this.setState({
           txnHash: transaction.transactionHash, blockWitnessed: transaction.blockNumber,
           successMessage: `Your credential has been stored at block: ${transaction.blockNumber} and transaction hash: ${transaction.transactionHash} REDIRECTING NOW ...`
         })
-        const contractAddress = transaction.events.ContractCreated.returnValues.contractAddress;
+        const contractAddress = transaction.events.CredentialCreated.returnValues.contractAddress;
         Router.replaceRoute(`/creds/${contractAddress}`);
 
       } catch (err) {
@@ -93,7 +94,6 @@ class CredentialForm extends Component {
           onChange = { event => this.setState({certURL: event.target.value}) }
         />
         
-
         <Message error header='oops!' content={ this.state.errorMessage } />
         <Message success header='yay!' content={ this.state.successMessage } />
 
