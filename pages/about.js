@@ -4,7 +4,6 @@ import Head from 'next/head';
 import NavBar from '../components/NavBar';
 import "../style.css";
 import BaseLayout from '../components/BaseLayout';
-import FAQs from '../components/FAQs';
 
 class About extends Component {
 
@@ -28,8 +27,6 @@ class About extends Component {
           <link href="https://fonts.googleapis.com/css?family=Libre+Baskerville:400,700|Pinyon+Script" rel="stylesheet" />
           <meta name="viewport" content="width=device-width, initial-scale=1" />
         </Head>
-   
-        <FAQs/>
       </Container>
       </BaseLayout>
     )
