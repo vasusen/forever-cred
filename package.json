@@ -1,7 +1,7 @@
 {
-  "name": "Forevermore",
+  "name": "Forevercred",
   "version": "1.0.0",
-  "description": "Credential Vows on the Blockchain",
+  "description": "Credentials on the Blockchain",
   "main": "index.js",
   "scripts": {
     "test": "mocha",

@@ -16,7 +16,14 @@ class CredsShow extends Component {
 	static async getInitialProps(props) {
 		const address = props.query.address;
     const credential = Credential(address);
-		const credentialDetails = await credential.methods.getCredentialDetails().call();
+    console.log("cred is");
+    console.log(credential);
+		const credentialDetails = await credential.methods.getCredentialDetails().call({ from: '0xb83f3514A41B9fb0AEEF42bE8e7a756F0d32Aa6E', gas: 100000 });
+    //const credentialDetails = {0:"0x671890EDeF6EDE5bE2ca0e6566C286fbeCc0E3fd", 1:"5NJRT92TTN37", 2:"susen Patil", 3:"Machine Learning", 4:"an online non-credit course authorized by Stanford and offered through Coursera", 5:"Stanford University", 6:"Andrew Ng", 7:1537649322116};
+    console.log("call done");
+    console.log(credential.options.address);
+    console.log("name");
+    console.log(credential.options);
     const owner = credentialDetails[0];
     const id = credentialDetails[1];
     const recipientName = credentialDetails[2];
@@ -26,8 +33,10 @@ class CredsShow extends Component {
     const instructorName = credentialDetails[6];
     const issuedOn = credentialDetails[7];
 
-    const weiBalance = await credential.methods.getBalance().call();
-    const balance = await web3.utils.fromWei(weiBalance, 'ether');
+    //const weiBalance = await credential.methods.getBalance().call();
+    //const balance = await web3.utils.fromWei(weiBalance, 'ether');
+    const weiBalance = 0;
+    const balance = 0;
 
     return {
       address, owner, id, recipientName, courseName, courseDescription, issuerName, instructorName, issuedOn, balance
@@ -50,7 +59,7 @@ class CredsShow extends Component {
     const dateString = `${months[month]} ${day}, ${year}`;
     return dateString;
   }
-
+  
   trunc(text){
     return (text.length > 300) ? `${text.substr(0, 300)} ...` : text;
   }
@@ -71,14 +80,14 @@ class CredsShow extends Component {
           </Grid>
 
           <Grid id='Vows-Grid' stackable={true} columns='equal'>
-            <Grid.Column className='Vows-Text'>{ this.trunc(this.props.leftVows) }</Grid.Column>
-            <Grid.Column className='Vows-Text'>{ this.trunc(this.props.rightVows) }</Grid.Column>
+            <Grid.Column className='Vows-Text'>{ this.props.issuerName }</Grid.Column>
+            <Grid.Column className='Vows-Text'>{ this.props.instructorName }</Grid.Column>
           </Grid>
 
           <div className='Large-Cursive'>Congratulate on the accomplishment</div>
-          <Bell address={this.props.address}/>
+          <Bell address={this.props.owner}/>
 
-          <WitnessedByFooter address={this.props.address}/>
+         {/* <WitnessedByFooter address={this.props.address}/>*/}
         </Container>
 		  </Layout>
 		)

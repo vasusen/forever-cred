@@ -48,5 +48,12 @@ describe('Credential', () => {
   it('verifies owner is correct', async () => {
     const owner = await credentialContract.methods.owner().call();
     assert.equal(credentialOwner, owner);
-  })
+  });
+  
+  it('verifies id is correct', async () => {
+    const id = await credentialContract.methods.id().call();
+    assert.equal("5KJ349Q", id);
+  });
+  
+  
 })

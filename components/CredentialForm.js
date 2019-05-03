@@ -46,14 +46,23 @@ class CredentialForm extends Component {
     if (!fieldErrorMsg) {
       let { ethereumWalletAddress, certURL } = this.state;
       //let { id, recipientName, courseName, courseDescription, issuerName, instructorName } = this.state;
-      //let { id, recipientName, courseName, courseDescription, issuerName, instructorName, issuedOn } = getCredentials(this.state.certURL);
-      let id = '5NJRT92TTN37';
+      let { id, recipientName, courseName, courseDescription, issuerName, instructorName, issuedOn } = await getCredentials(this.state.certURL);
+      
+      console.log(getCredentials(this.state.certURL));
+      console.log(id);
+      console.log(recipientName);
+      console.log(courseName);
+      console.log(courseDescription);
+      console.log(issuerName);
+      console.log(instructorName);
+      console.log(issuedOn);
+      /*let id = '5NJRT92TTN37';
       let recipientName = 'Vasusen Patil';
       let courseName = 'Machine Learning';
       let courseDescription = 'Online course by Coursera';
       let issuerName = 'Stanford University';
       let instructorName = 'Andrew Ng';
-      let issuedOn = 1537649322116;
+      let issuedOn = 1537649322116; */
       const owner = this.state.ethereumWalletAddress;
 
       // Submitting form to the blockchain
