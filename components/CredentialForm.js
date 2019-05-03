@@ -46,7 +46,14 @@ class CredentialForm extends Component {
     if (!fieldErrorMsg) {
       let { ethereumWalletAddress, certURL } = this.state;
       //let { id, recipientName, courseName, courseDescription, issuerName, instructorName } = this.state;
-      let { id, recipientName, courseName, courseDescription, issuerName, instructorName, issuedOn } = getCredentials(this.state.certURL);
+      //let { id, recipientName, courseName, courseDescription, issuerName, instructorName, issuedOn } = getCredentials(this.state.certURL);
+      let id = '5NJRT92TTN37';
+      let recipientName = 'Vasusen Patil';
+      let courseName = 'Machine Learning';
+      let courseDescription = 'Online course by Coursera';
+      let issuerName = 'Stanford University';
+      let instructorName = 'Andrew Ng';
+      let issuedOn = 1537649322116;
       const owner = this.state.ethereumWalletAddress;
 
       // Submitting form to the blockchain
@@ -54,7 +61,7 @@ class CredentialForm extends Component {
         const accounts = await web3.eth.getAccounts();
         // (1) Create new credential contract
         let transaction = await CredentialFactory.methods
-          .createCredential(id, recipientName, courseName, courseDescription, issuerName, instructorName, issuedOn)
+          .createCredential(owner, id, recipientName, courseName, courseDescription, issuerName, instructorName, issuedOn)
         .send({ from: accounts[0], gas: 1000000 }); // Gas limit is required for Ganache
         
         // Update Web app
