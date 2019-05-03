@@ -9,9 +9,6 @@ import Head from 'next/head';
 // My own NavBar component
 import NavBar from './NavBar';
 
-// Popunder modal for mobile viewers
-import MobilePopUnder from './MobilePopUnder';
-
 
 // TODO put image in a grid so its somewhat responsive
 export default props => {
@@ -34,7 +31,6 @@ export default props => {
         {props.children}
       </Container>
 
-      <MobilePopUnder/>
     </BaseLayout>
   );
 };
