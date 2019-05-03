@@ -44,7 +44,7 @@ class Bell extends Component {
             <Image id='Modal-Image' wrapped size='medium' src='../../static/Transfer.png' />
             <Modal.Description id='Modal-Description'>
               <Header>How much ether would you like to gift?</Header>
-              <p>You must really like this couple :) </p>
+              <p>Token of appreciation </p>
               
               <Form onSubmit={this.congratulate} error={!!this.state.errorMessage} success={!!this.state.successMessage}>
                 <Input 
