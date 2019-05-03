@@ -24,14 +24,14 @@ if (typeof window !== 'undefined' && typeof window.web3 !== 'undefined') {
       }
     }
   );*/
-  
+
   const provider = new HDWalletProvider(
     //'HTTP://127.0.0.1:7545'
     // Ropsten
-    'pika pika pika pika chu chu chu mnemonic mnemonic mnemonic', // MNEMONIC
-    'HTTP://127.0.0.1:7545' // ETH_CONNECTION_URL
+    process.env.MNEMONIC || 'pika pika pika pika chu chu chu mnemonic mnemonic mnemonic',
+    process.env.ETH_CONNECTION_URL || 'HTTP://127.0.0.1:7545'
   );
-  
+
   web3 = new Web3(provider);  // Reassign web3 to provider
 }
 
@@ -44,7 +44,7 @@ if (typeof window !== 'undefined' && typeof window.web3 !== 'undefined') {
     ''
   );
   web3 = new Web3(provider);  // Reassign web3 to provider
-  console.log("web3 provider: "); 
+  console.log("web3 provider: ");
   console.log(web3);
 */
 
